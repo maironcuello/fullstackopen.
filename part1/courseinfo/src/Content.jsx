@@ -4,13 +4,14 @@ function Content(props) {
   return (
     <div>
       <p>
-        {props.parte1} {props.exercises1}
+        {props.parts[0].name}
+        {console.log(props.parts.name)}
       </p>
       <p>
-        {props.parte2} {props.exercises2}
+        {props.parts[1].name} 
       </p>
       <p>
-        {props.parte3} {props.exercises3}
+        {props.parts[2].name} 
       </p>
     </div>
   );
