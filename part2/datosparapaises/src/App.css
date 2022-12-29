@@ -1,0 +1,26 @@
+/* html body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.container {
+  border: .1rem solid #ccc;
+  padding: 50px;
+  border-radius: .5rem;
+}
+
+.filter input {
+  width: 250px;
+}
+
+.show {
+  border: .1rem solid #ccc;
+  height: 400px;
+
+} */

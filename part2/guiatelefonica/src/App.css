@@ -1,0 +1,64 @@
+body {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  border: .1rem solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+  gap: .2rem;;
+}
+
+.components {
+  border: .1rem solid #ccc;
+  margin: 1.5rem;
+  padding: .5rem;
+}
+hr {
+  border: none;
+  border: .1px solid #ccc;
+}
+
+div {
+  border-radius:.5rem;
+}
+button {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  padding: .4rem 1rem;
+}
+input {
+  width: 90%;
+}
+
+ol {
+  padding-left: 30px;
+  text-decoration: none;
+}
+li {
+  padding-left: 1rem;
+  font-size: 1.2rem;
+  
+}
+li span{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+h2 {
+  padding-left: 1rem;
+
+}
+input {
+  margin-left: 1rem;
+}
+label {
+  margin-left: 1rem;
+}
