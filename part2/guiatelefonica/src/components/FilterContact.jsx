@@ -1,24 +1,22 @@
-import { filterContact } from "../helpers/config";
 
+import { filterContact } from "../helpers/config";
 /**
- * 
+ *
  * @param {*} props State properties of the contacts
  * @returns Rendered contact
  */
-export const FilterContact = (props) => {
-  const result = filterContact(props.persons, props.findname);
+export const FilterContact = ({findname, filterPerson }) => {
+  // const result = filterContact(persons, findname);
   return (
     <div>
-      <h2>{props.title}</h2>
+      <h2>{"Filter shown with"}</h2>
       <input
-        value={props.findname}
+        value={findname}
         required
-        onChange={props.onChange}
+        onChange={filterPerson}
         placeholder="Contact"
       />
-
-      <ol>
-        {props.findname
+        {/* {findname
           ? result.map((contact, index) => (
               <li key={index}>
                 {contact.name}
@@ -26,8 +24,7 @@ export const FilterContact = (props) => {
                 <span>{contact.phone}</span>
               </li>
             ))
-          : ''}
-      </ol>
+          : ""} */}
     </div>
   );
 };
