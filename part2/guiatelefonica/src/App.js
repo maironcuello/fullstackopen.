@@ -17,23 +17,28 @@ export const App = () => {
    * Uses States
    */
   const [persons, setPersons] = useState([]);
-  const [personsFilter, setPersonsFilter] = useState("");
+  const [personsFilter, setPersonsFilter] = useState([]);
   const [newName, setNewName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [findName, setFindName] = useState("");
   const [messagError, setMessagError] = useState(null);
 
   useEffect(() => {
-    getAllContact(setPersons);
+    getAllContact(setPersons).then(data => {
+    });
   }, []);
 
-  const filterPerson = (event) =>{
-    setFindName(event.target.value);
-    const filteredContact = persons.filter((person) => person.name.toLowerCase().includes(findName.toLowerCase()));
-    setPersonsFilter(filteredContact);
-  }
- 
-  const addContact = (event) => {
+  const filterPerson = (event) => {
+    event.preventDefault();
+    let eventPerson = event.target.value;
+    console.log(eventPerson);
+    setFindName(eventPerson);
+    // console.log(findName);
+    const filteredContact = persons.filter((person) => person.name.toLowerCase().includes(eventPerson.toLowerCase()));
+    return (eventPerson !== "") ? setPersonsFilter(filteredContact) : setPersonsFilter([]);
+  };
+
+  const addNewContactOrUpdate = (event) => {
     event.preventDefault();
     if (isSomePerson(newName, persons)) {
       const contact = findContact(newName, persons);
@@ -44,8 +49,10 @@ export const App = () => {
           `${newName} is already added to phonebook, do you want to replace it?`
         )
       ) {
-        updateContact(id, contactUpdate);
-        alert("Contact already to update successfully");
+        updateContact(id, contactUpdate).then(data => {
+          setPhoneNumber("");
+          getAllContact(setPersons)
+        })
       }
     } else {
       const contact = { name: newName, phone: phoneNumber };
@@ -56,9 +63,13 @@ export const App = () => {
     }
   };
 
-  const handleNameChange = (event) => setNewName(event.target.value);
-  const handlePhoneChange = (event) => setPhoneNumber(event.target.value);
-  // const handleFindNameChange = (event) => setFindName(event.target.value);
+  const dataContact = {
+    newName,
+    phoneNumber,
+    addNewContactOrUpdate,
+    setNewName,
+    setPhoneNumber,
+  };
 
   return (
     /**
@@ -66,24 +77,11 @@ export const App = () => {
      */
     <div className="container">
       <div className="components">
-        <FilterContact
-          title="Filter shown with"
-          findname={findName}
-          filterPerson={filterPerson}
-          // persons={persons}
-        />
-        <hr />
         <Notification />
-        <AddnewContact
-          title="Phonebook"
-          newname={newName}
-          onChangeName={handleNameChange}
-          phonenumber={phoneNumber}
-          onChangePhone={handlePhoneChange}
-          setDataBase={addContact}
-        />
+        <FilterContact findname={findName} filterPerson={filterPerson} />
+        <AddnewContact dataContact={dataContact}/>
         <hr />
-        <ShowContact title="Numbers" persons={persons} state={setPersons} />
+        <ShowContact persons={persons} personsFilter={personsFilter} />
       </div>
     </div>
   );
