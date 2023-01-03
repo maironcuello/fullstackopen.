@@ -1,29 +1,38 @@
-import { getAllContact, deleteContact } from '../helpers/phone';
+export const ShowContact = ({
+  parametersShowContact: { personsFilter, setPersonsFilter, deleteContact, getAllContact, setPersons },
+}) => {
+  
+  /**
+   * @param {id} To use parameter for find contact and delete to server
+   * @param {person.name}  Render on screen
+   * @param {person.phone}  Render on screen
+   */
 
-
-export const ShowContact = (props) => {
-/**
- * 
- * @param {*} id to delete
- * @param {*} name  to delete
- */
-const render = (id, name) => {
-  deleteContact(id, name)
-  getAllContact(props.state);
-}
-
-return (
+  return (
     <div>
-      <h2>{props.title}</h2>
+      <h2>{"Numbers"}</h2>
       <ol>
-        {props.persons.map((person, index) => 
-                <li key={index}>{person.name}{"  : "}
-                    <span>
-                        {person.phone}
-                        <button onClick={()=> render(person.id, person.name)}>Delete</button>
-                    </span>
-                </li>
-        )}
+        {personsFilter.map((person, index) => (
+          <li key={index}>
+            {person.name}
+            {"  : "}
+            <span>
+              {person.phone}
+              <button
+                onClick={() =>
+                  deleteContact(person.id, person.name)
+                  .then(() => {
+                    getAllContact(setPersons)                 
+                    setPersonsFilter(personsFilter.filter((ele) => ele.id !== person.id));
+                  })
+                  .catch(err => console.error('Error, contact not exists or was deleted '))
+                }
+              >
+                Delete
+              </button>
+            </span>
+          </li>
+        ))}
       </ol>
     </div>
   );

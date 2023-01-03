@@ -1,22 +1,18 @@
-import React from "react";
+import "../index.css";
 
 export const Notification = ({ messege }) => {
-  if (messege === null) {
-    return null;
-  }
+  if (messege === null) return null;
 
-  const messageStyle = {
-    color: 'red',
+  const styleMessage = {
+    color: 'green',
     background: 'lightgrey',
-    fontSize: '20',
-    borderStyle: 'solid',
-    borderRadius: '5',
-    padding: '10',
-    marginBottom: '1'
+    fontsize: 20,
+    bordercolor: 'green',
+    borderstyle: 'solid',
+    borderradius: 5,
+    padding: 10,
+    marginbottom: 10
   }
 
-
-  return <div className="messageStyle">
-    {messege}
-  </div>;
+  return <div style={styleMessage}>{messege}</div>;
 };
