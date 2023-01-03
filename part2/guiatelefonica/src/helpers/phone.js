@@ -1,26 +1,27 @@
-import axios from 'axios';
+import axios from "axios";
 
+const url = "http://localhost:3001/persons";
 
-const url = 'http://localhost:3001/persons';
-
-const getAllContact = async(state) => {
-    const response = await axios.get(url);
-    state(response.data);
+const getAllContact = async (state) => {
+  const response = await axios.get(url);
+  state(response.data);
+  return response.data;
 };
 
-const createContact = async (newObject) =>{
-  await axios.post(url, newObject );
-}
+const createContact = async (newObject) => {
+  const response = await axios.post(url, newObject);
+  return response.data;
+};
 
-const updateContact = async(id,newObject) =>{
-   await axios.put(`${url}/${id}`, newObject );
-}
+const updateContact = async (id, newObject) => {
+  const response = await axios.put(`${url}/${id}`, newObject);
+  return response.data;
+};
 
-const deleteContact =  async(id, name) => {
-   if(window.confirm(`Are you sure to delete ${name}?`)){  
+const deleteContact = async (id, name) => {
+   if (window.confirm(`Are you sure to delete ${name}?`)) {
       await axios.delete(`${url}/${id}`);
-   }      
-}
+  }
+};
 
-
-export { getAllContact, createContact, updateContact, deleteContact }
+export { getAllContact, createContact, updateContact, deleteContact };
