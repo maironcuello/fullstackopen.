@@ -13,10 +13,11 @@ body {
   justify-content: center;
   align-items: left;
   flex-direction: column;
-  gap: .2rem;;
+  gap: .2rem;
 }
 
 .components {
+  height: 600px;
   border: .1rem solid #ccc;
   margin: 1.5rem;
   padding: .5rem;
@@ -34,9 +35,6 @@ button {
   margin-left: 1rem;
   padding-left: 1rem;
   padding: .4rem 1rem;
-}
-input {
-  width: 90%;
 }
 
 ol {
@@ -58,6 +56,7 @@ h2 {
 }
 input {
   margin-left: 1rem;
+  width: 400px;
 }
 label {
   margin-left: 1rem;
