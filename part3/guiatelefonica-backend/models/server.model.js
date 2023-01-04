@@ -7,6 +7,7 @@ class Backendserver {
     this.app = express();
     this.port = process.env.PORT;   
     this.personsPath = "/api/persons";
+    this.infoPath = "/info";
     this.routes();
     this.middaleware();
   }
@@ -24,6 +25,7 @@ class Backendserver {
    */
   routes() {
       this.app.use(this.personsPath, require("../routes/persons.routes"));
+      this.app.use(this.infoPath, require("../routes/info.routes"));
   }
 
   /**
