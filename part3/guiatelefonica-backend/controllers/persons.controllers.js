@@ -1,8 +1,9 @@
 const { request, response } = require("express");
-const { getContactById } = require("./../helpers/database/dbConfigurations");
+const { getContactById, getAllContacts } = require("./../helpers/database/dbConfigurations");
 
 const getAllPersons = (req = request, res = response) => {
-  res.status(200).json(db);
+    
+    res.status(200).json(getAllContacts());
 };
 
 const getPerson = (req = request, res = response) => {

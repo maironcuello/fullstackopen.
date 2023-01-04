@@ -2,12 +2,11 @@ const db = require("../../database/db.json");
 
 
 
-const getContactById = (id) => {
-    const contact = db.find((ele)=> ele.id === id);    
-    return contact
-} 
+const getContactById = (id) => db.find((ele)=> ele.id === id);    
+const getAllContacts = () => db;    
 
 
 module.exports = {
-    getContactById
+    getContactById,
+    getAllContacts
 }
