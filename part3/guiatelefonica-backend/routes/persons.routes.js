@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAllPersons, getPerson } = require("../controllers/persons.controllers");
+const { getAllPersons, getPerson, deletePerson } = require("../controllers/persons.controllers");
 
 /**
  * Router
@@ -11,5 +11,6 @@ const router = Router();
  */
 router.get("/", getAllPersons);
 router.get("/:id", getPerson);
+router.delete("/:id", deletePerson);
 
 module.exports = router;
