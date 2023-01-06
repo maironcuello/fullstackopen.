@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3001/persons";
+const url = "http://localhost:8000/api/persons";
 
 const getAllContact = async (state) => {
   const response = await axios.get(url);
@@ -19,8 +19,9 @@ const updateContact = async (id, newObject) => {
 };
 
 const deleteContact = async (id, name) => {
-   if (window.confirm(`Are you sure to delete ${name}?`)) {
-      await axios.delete(`${url}/${id}`);
+  if (window.confirm(`Are you sure to delete ${name}?`)) {
+    const response =  await axios.delete(`${url}/${id}`);
+    return response.data;
   }
 };
 
