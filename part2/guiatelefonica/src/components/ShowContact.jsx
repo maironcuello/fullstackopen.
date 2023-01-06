@@ -5,11 +5,10 @@ export const ShowContact = ({
   /**
    * @param {id} To use parameter for find contact and delete to server
    * @param {person.name}  Render on screen
-   * @param {person.phone}  Render on screen
-   */
-
-  return (
-    <div>
+   * @param {person.number}  Render on screen
+  */
+ return (
+   <div>
       <h2>{"Numbers"}</h2>
       <ol>
         {personsFilter.map((person, index) => (
@@ -17,13 +16,15 @@ export const ShowContact = ({
             {person.name}
             {"  : "}
             <span>
-              {person.phone}
+              {person.number}
               <button
                 onClick={() =>
                   deleteContact(person.id, person.name)
-                  .then(() => {
-                    getAllContact(setPersons)                 
-                    setPersonsFilter(personsFilter.filter((ele) => ele.id !== person.id));
+                  .then((data) => {
+                    if(data){
+                      setPersonsFilter(personsFilter.filter((ele) => ele.id !== person.id));
+                      getAllContact(setPersons)
+                    }
                   })
                   .catch(err => console.error('Error, contact not exists or was deleted '))
                 }

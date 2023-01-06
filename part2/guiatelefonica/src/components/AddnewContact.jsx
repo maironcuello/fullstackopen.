@@ -11,17 +11,12 @@ export const AddnewContact = ({
       <h2>{"Phonebook"}</h2>
       <form onSubmit={addNewContactOrUpdate}>
         <div>
-          <label>Name:</label>
-          <br />
           <input
             value={newName}
             required
             onChange={(event) => setNewName(event.target.value)}
             placeholder="Write a name"
           />
-          <br />
-          <br />
-          <label>Number:</label>
           <br />
           <input
             value={phoneNumber}
