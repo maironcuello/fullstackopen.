@@ -17,7 +17,7 @@ body {
 }
 
 .components {
-  height: 600px;
+  /* height: 600px; */
   border: .1rem solid #ccc;
   margin: 1.5rem;
   padding: .5rem;
@@ -43,7 +43,7 @@ ol {
 }
 li {
   padding-left: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   
 }
 li span{
@@ -56,7 +56,10 @@ h2 {
 }
 input {
   margin-left: 1rem;
+  margin-bottom: .5rem  ;
   width: 400px;
+  height: 1.5rem;
+  font-size: 1rem;
 }
 label {
   margin-left: 1rem;
