@@ -1,5 +1,6 @@
 require('./../server/configutations/config.port.server');
 const express = require("express");
+const morgan = require("morgan");
 const cors = require("cors");
 
 class Backendserver {
@@ -8,18 +9,21 @@ class Backendserver {
     this.port = process.env.PORT;   
     this.personsPath = "/api/persons";
     this.infoPath = "/info";
-    this.routes();
     this.middaleware();
+    this.routes();
   }
+
   /**
    * Middleware
    */
   middaleware() {
+    this.app.use(morgan(':method :url :status  :res[content-length] :response-time ms :body'));
     this.app.use(cors());
     this.app.use(express.json());
     // Public directory
     this.app.use(express.static('public'));
   }
+  
   /**
    * Routes
    */
