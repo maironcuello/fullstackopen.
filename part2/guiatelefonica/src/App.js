@@ -25,16 +25,14 @@ export const App = () => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    getAllContact(setPersons).then((data) => {});
+    getAllContact(setPersons)
   }, []);
 
   const filterPerson = (event) => {
     event.preventDefault();
     const eventPerson = event.target.value;
     setFindName(eventPerson);
-    const filteredContact = persons.filter((person) =>
-      person.name.toLowerCase().includes(eventPerson.toLowerCase())
-    );
+    const filteredContact = persons.filter((person) => person.name.toLowerCase().includes(eventPerson.toLowerCase()));
     return eventPerson !== "" ? setPersonsFilter(filteredContact) : setPersonsFilter([]);
   };
 
@@ -43,24 +41,27 @@ export const App = () => {
     if (isSomePerson(newName, persons)) {
       const contact = findContact(newName, persons);
       const id = contact[0].id;
-      const contactUpdate = { name: newName, phone: phoneNumber };
+      const contactUpdate = { name: newName, number: phoneNumber };
       if (window.confirm(`${newName} is already added to phonebook, do you want to replace it?`)) {
         updateContact(id, contactUpdate)
         .then((data) => {
+          // setPersonsFilter();
           getAllContact(setPersons);
           setNewName("");
           setPhoneNumber("");    
         });
       }
     } else {
-      const contact = { name: newName, phone: phoneNumber };
-      createContact(contact).then((data) => {
+      const contact = { name: newName, number: phoneNumber };
+      createContact(contact)
+      .then((data) => {
         setMessage(`New contact ${data.name} added successfully`);
         setTimeout(() => {
           setMessage(null);
         }, 5000);
       });
       setPersons([...persons, contact]);
+      getAllContact(setPersons);
       setNewName("");
       setPhoneNumber("");
     }
