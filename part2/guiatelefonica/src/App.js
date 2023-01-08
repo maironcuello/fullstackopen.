@@ -13,7 +13,7 @@ import { Notification } from "./components/Notification";
 /**
  * Import our methods for interacting with the rest server
  */
-import {getAllContact, createContact, updateContact, deleteContact,} from "./helpers/phone";
+import { getAllContact, createContact, updateContact, deleteContact, } from "./helpers/phone";
 
 export const App = () => {
 
@@ -28,6 +28,18 @@ export const App = () => {
     getAllContact(setPersons)
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  }, [message]);
+
+  const clearSetState = () => {
+    setNewName("");
+    setPhoneNumber("");
+    setFindName("");
+  }
+
   const filterPerson = (event) => {
     event.preventDefault();
     const eventPerson = event.target.value;
@@ -38,32 +50,33 @@ export const App = () => {
 
   const addNewContactOrUpdate = (event) => {
     event.preventDefault();
-    if (isSomePerson(newName, persons)) {
-      const contact = findContact(newName, persons);
-      const id = contact[0].id;
-      const contactUpdate = { name: newName, number: phoneNumber };
+    const contactTofind = findContact(newName, persons);
+    if (contactTofind) {
       if (window.confirm(`${newName} is already added to phonebook, do you want to replace it?`)) {
-        updateContact(id, contactUpdate)
-        .then((data) => {
-          // setPersonsFilter();
-          getAllContact(setPersons);
-          setNewName("");
-          setPhoneNumber("");    
-        });
+        updateContact({id: contactTofind.id, name: newName, number: phoneNumber })
+          .then((data) => {
+            setMessage(`Contact ${data.name} Updated successfully`);
+            const personsFiltered = personsFilter.filter((person) => person.name !== newName);
+            setPersonsFilter([...personsFiltered, data]);
+            const newPersons = persons.filter((person) => person.name !== newName);
+            setPersons([...newPersons, data]);
+          })
+          .catch((err) => {
+            setMessage(`${err} Contact ${newName} could not be Updated`);
+          });
+        clearSetState();
       }
     } else {
-      const contact = { name: newName, number: phoneNumber };
-      createContact(contact)
-      .then((data) => {
-        setMessage(`New contact ${data.name} added successfully`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 5000);
-      });
-      setPersons([...persons, contact]);
-      getAllContact(setPersons);
-      setNewName("");
-      setPhoneNumber("");
+      createContact({ name: newName, number: phoneNumber })
+        .then((data) => {
+          setMessage(`New contact ${data.name} added successfully`);
+          setPersons([...persons, data]);
+          setPersonsFilter([...personsFilter,data]);
+        })
+        .catch((err) => {
+          setMessage(`${err} Contact ${newName} could not be added`);
+        });
+      clearSetState()
     }
   };
 
@@ -83,11 +96,11 @@ export const App = () => {
   };
   return (
 
-  <div className="container">
+    <div className="container">
       <div className="components">
         <Notification messege={message} />
         <FilterContact findname={findName} filterPerson={filterPerson} />
-        <AddnewContact parametersAddnewContact={parametersAddnewContact} /><hr/>
+        <AddnewContact parametersAddnewContact={parametersAddnewContact} /><hr />
         <ShowContact parametersShowContact={parametersShowContact} />
       </div>
     </div>
