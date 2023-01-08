@@ -13,8 +13,8 @@ const createContact = async (newObject) => {
   return response.data;
 };
 
-const updateContact = async (id, newObject) => {
-  const response = await axios.put(`${url}/${id}`, newObject);
+const updateContact = async (newObject) => {
+  const response = await axios.put(`${url}/${newObject.id}`, newObject);
   return response.data;
 };
 
