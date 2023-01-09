@@ -1,5 +1,5 @@
 export const ShowContact = ({
-  parametersShowContact: { personsFilter, setPersonsFilter, deleteContact, getAllContact, setPersons },
+  parametersShowContact: { personsFilter, deletePerson },
 }) => {
   
   /**
@@ -7,6 +7,8 @@ export const ShowContact = ({
    * @param {person.name}  Render on screen
    * @param {person.number}  Render on screen
   */
+
+ 
  return (
    <div>
       <h2>{"Numbers"}</h2>
@@ -17,18 +19,7 @@ export const ShowContact = ({
             {"  : "}
             <span>
               {person.number}
-              <button
-                onClick={() =>
-                  deleteContact(person.id, person.name)
-                  .then((data) => {
-                    if(data){
-                      setPersonsFilter(personsFilter.filter((ele) => ele.id !== person.id));
-                      getAllContact(setPersons)
-                    }
-                  })
-                  .catch(err => console.error('Error, contact not exists or was deleted '))
-                }
-              >
+              <button onClick={() => deletePerson(person.id, person.name)}>
                 Delete
               </button>
             </span>
