@@ -21,7 +21,7 @@ class Backendserver {
     this.app.use(cors());
     this.app.use(express.json());
     // Public directory
-    this.app.use(express.static('public'));
+    this.app.use(express.static('build'));
   }
   
   /**
