@@ -9,6 +9,6 @@ const router = Router();
 /**
  * Routes for the server
  */
-router.get("/", getInfo);
+router.get("/:id", getInfo);
 
 module.exports = router;

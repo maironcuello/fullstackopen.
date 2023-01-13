@@ -1,4 +1,9 @@
+/**
+ * Our Method connections  
+ */
 require('./../server/configutations/config.port.server');
+const { dbConection } = require('./../helpers/database/connect.database')
+
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -6,12 +11,21 @@ const cors = require("cors");
 class Backendserver {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT;   
+    this.port = process.env.PORT;
     this.personsPath = "/api/persons";
     this.infoPath = "/info";
     this.middaleware();
     this.routes();
+    this.dbConection()
   }
+
+  /**
+   * Database connection
+   */
+  async dbConection(){
+    await dbConection();
+  }
+
 
   /**
    * Middleware
@@ -23,13 +37,13 @@ class Backendserver {
     // Public directory
     this.app.use(express.static('build'));
   }
-  
+
   /**
    * Routes
    */
   routes() {
-      this.app.use(this.personsPath, require("../routes/persons.routes"));
-      this.app.use(this.infoPath, require("../routes/info.routes"));
+    this.app.use(this.personsPath, require("../routes/persons.routes"));
+    this.app.use(this.infoPath, require("../routes/info.routes"));
   }
 
   /**
