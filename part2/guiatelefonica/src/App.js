@@ -3,7 +3,7 @@ import "./App.css";
 /**
  * Our method to search
  */
-import { findContact } from "./helpers/config";
+import { findContact, handleError } from "./helpers/config";
 
 /**
  * Import our Components
@@ -31,6 +31,11 @@ export const App = () => {
    */
   useEffect(() => {
     getAllContact(setPersons)
+      .then(data => {
+        setMessage({ nota: `Connected to server`, type: 'success' });
+      }).catch(err => {
+        setMessage({ nota: `${handleError(err)} - Connecting to server`, type: 'error' });
+      })
   }, []);
 
   /**
@@ -50,22 +55,23 @@ export const App = () => {
     setPhoneNumber("");
     setFindName("");
   }
-  
 
   /**
    * Delete contact to backend server and update the states Person and personFilter
-   */
+  */
   const deletePerson = (id, name) => {
-    deleteContact(id)
-    .then((data) => {
-      const newPersons = persons.filter((person) => person.id!== id);
-      setPersons(newPersons);
-      const newPersonsFilter = personsFilter.filter((person) => person.id !== id);
-      setPersonsFilter(newPersonsFilter);
-      setMessage({nota:`Contact ${name} ${data.msg}`,type:'success'});
-    }).catch((err) => {
-      setMessage({nota:`Contact ${err} no delete`,type:'error'});
-    });
+    if (window.confirm(`Are you sure to delete ${name}?`)) {
+      deleteContact(id)
+        .then((data) => {
+          setMessage({ nota: `${data.name} Deleted succefully`, type: 'success' });
+          const newPersons = persons.filter((person) => person.id !== id);
+          setPersons(newPersons);
+          const newPersonsFilter = personsFilter.filter((person) => person.id !== id);
+          setPersonsFilter(newPersonsFilter);
+        }).catch((err) => {
+          setMessage({ nota: `${handleError(err)} - could not be deleted`, type: 'error' });
+        });
+    }
     clearSetState();
   }
 
@@ -81,7 +87,6 @@ export const App = () => {
   };
 
   /**
-   * 
    * @param {*} event
    * Heaer the event OncChange in the inputs and capture information
    */
@@ -90,33 +95,30 @@ export const App = () => {
     const contactTofind = findContact(newName, persons);
     if (contactTofind) {
       if (window.confirm(`${newName} is already added to phonebook, do you want to replace it?`)) {
-        updateContact({id: contactTofind.id, name: newName, number: phoneNumber })
+        updateContact({ id: contactTofind.id, name: newName, number: phoneNumber })
           .then((data) => {
-            setMessage({nota:`Contact ${data.name} Updated successfully`,type:'success'});
-            console.log(data.id);
+            setMessage({ nota: `Contact ${data.name} Updated successfully`, type: 'success' });
             const newPersonsFilter = personsFilter.filter((person) => person.name !== newName);
             setPersonsFilter([...newPersonsFilter, data]);
             const newPersons = persons.filter((person) => person.name !== newName);
             setPersons([...newPersons, data]);
           })
           .catch((err) => {
-            setMessage({nata:`${err} Contact ${newName} could not be Updated`,type:'error'});
+            setMessage({ nota: `${handleError(err)} - Contact ${newName} could not be Updated`, type: 'error' });
           });
-          clearSetState();
-        }
-      } else {
-        createContact({ name: newName, number: phoneNumber })
+        clearSetState();
+      }
+    } else {
+      createContact({ name: newName, number: phoneNumber })
         .then((data) => {
-          const { msg, ...rest} = data;
-          console.log(rest);
-          setMessage({nota:`New contact ${rest.name} ${msg}`,type:'success'});
+          setMessage({ nota: `New contact ${data.name} created succefully `, type: 'success' });
           const newPersons = persons.filter((person) => person.name !== newName);
-          setPersons([...newPersons, rest]);
+          setPersons([...newPersons, data]);
           const newPersonsFilter = personsFilter.filter((person) => person.name !== newName);
-          setPersonsFilter([...newPersonsFilter,rest]);
+          setPersonsFilter([...newPersonsFilter, data]);
         })
         .catch((err) => {
-          setMessage({nota:`${err} Contact ${newName} could not be added`,type:'error'});
+          setMessage({ nota: `${handleError(err)} Contact ${newName} could not be created`, type: 'error' });
         });
       clearSetState()
     }
@@ -132,9 +134,9 @@ export const App = () => {
     setNewName,
     setPhoneNumber,
   };
-   /**
-    *Pass through parameters to ShowContact component
-    */
+  /**
+   *Pass through parameters to ShowContact component
+   */
   const parametersShowContact = {
     personsFilter,
     deletePerson,
@@ -143,7 +145,7 @@ export const App = () => {
 
     <div className="container">
       <div className="components">
-        <Notification messege={message} />
+        <Notification message={message} />
         <FilterContact findname={findName} filterPerson={filterPerson} />
         <AddnewContact parametersAddnewContact={parametersAddnewContact} /><hr />
         <ShowContact parametersShowContact={parametersShowContact} />
