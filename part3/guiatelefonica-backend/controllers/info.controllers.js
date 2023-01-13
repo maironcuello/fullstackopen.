@@ -1,16 +1,12 @@
 const { request, response } = require("express");
-const {getAllContacts} = require('./../helpers/database/dbConfigurations')
+const { getAllContacts } = require('./../helpers/database/method.database')
+const Person = require('../models/phonebook.model');
 
-const getInfo = (req = request, res = response) => {
-  const contacts = getAllContacts();
-    
-  res.status(200).send(
-    `
-    <h3>Phonebook has info for ${contacts.length} people</h3>
-    <h3>${Date()}</h3>
-    `
-  );
-  res.end();
+
+const getInfo = async (req = request, res = response) => {
+  const { id } = req.params;
+  const contactId = await Person.findById(id);
+  res.status(200).json(contactId);
 };
 
 module.exports = {

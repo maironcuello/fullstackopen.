@@ -1,3 +1,4 @@
+const Person = require('../models/phonebook.model');
 const { request, response } = require("express");
 const {
   getContactById,
@@ -6,47 +7,61 @@ const {
   createPersonId,
   createContact,
   deleteContact,
-} = require("./../helpers/database/dbConfigurations");
+} = require("./../helpers/database/method.database");
 
-const getAllPersons = (req = request, res = response) => res.status(200).json(getAllContacts());
+/**
+ * 
+ * @param {*} error 
+ * @returns  Error message personality
+ */
+const handleError = (error) => response.status('500').json(`${error} something wrong in request`);
 
-const getPerson = (req = request, res = response) => {
-  const { id } = req.params;
-  const foundContact = getContactById(Number(id));
-  return !foundContact
-    ? res.status(404).json({ msg: `Id: ${id} not found` })
-    : res.status(200).json(foundContact);
+const getAllPersons = async (req = request, res = response) => {
+
+  try {
+    const contacts = await Person.find();
+    return res.status(200).json(contacts)
+  } catch (error) {
+    return res.status('400').json(`${error} Bad request`);
+  }
+  
 };
 
-const createPerson = (req = request, res = response) => {
-  const { name, number } = req.body;
-  if(name === '' || number === '') return res.status(400).json({ msg:`The name or number is required`});
-  if(getContactByName(name)) return res.status(404).json({ msg:`Contact ${name} is already exists`});  
-  const id = createPersonId();
-  createContact({id, name, number});
-  return res.status(200).json({ id, name, number ,msg:`Contact ${name} created succefully` });
-};
-
-const updatePerson = (req = request, res = response) => {
+const getPerson = async (req = request, res = response) => {
   const { id } = req.params;
-  const {name, number} = req.body;
-  const isUpdateContact = getContactById(Number(id));
-  if(!isUpdateContact) {return res.status(404).json({ msg: `Contact with ${id} not exists`});}
-  isUpdateContact.number = number;
-  return res.status(200).json(isUpdateContact);
-}
 
-const deletePerson = (req = request, res = response) => {
-  const { id } = req.params;
-  const iSfoundContact = getContactById(Number(id));
-  if(iSfoundContact){
-    deleteContact(id);
-    res.status(200).json({ msg: `Id: ${id} deleted succefully` })
-  }else{
-    res.status(404).json({ msg: `Id: ${id}not exists` })
+  try {
+    const contactId = await Person.findById(id);
+    return res.status(200).json(contactId);
+
+  } catch (error) {
+    return res.status('400').json(`Bad request from server ${error}`);
   }
 };
 
+const createPerson = async (req = request, res = response) => {
+  const { name, number } = req.body;
+  if (name === '' || number === '') return res.status(400).json({ msg: `The name or number is required` });
+  if (getContactByName(name)) return res.status(404).json({ msg: `Contact ${name} is already exists` });
+  const person = new Person({ name, number });
+  return await person.save()
+  .then((contact) => res.status(200).json(contact))
+};
+
+const updatePerson = async (req = request, res = response) => {
+  const { id } = req.params;
+  const { name, number } = req.body;
+  const isPerson = await Person.findByIdAndUpdate(id, { number });
+  if (!isPerson) return res.status(404).json({ msg: `Contact with ${id}and ${name} not exists` });
+  isPerson.number = number;
+  return res.status(200).json(isPerson);
+}
+
+const deletePerson = async (req = request, res = response) => {
+  const { id } = req.params;
+  await Person.findByIdAndDelete(id)
+  .then((data) => res.status(200).json(data));
+}
 module.exports = {
   getAllPersons,
   getPerson,
