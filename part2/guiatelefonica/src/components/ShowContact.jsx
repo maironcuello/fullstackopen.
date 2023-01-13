@@ -7,7 +7,6 @@ export const ShowContact = ({
    * @param {person.name}  Render on screen
    * @param {person.number}  Render on screen
   */
-
  
  return (
    <div>
