@@ -5,7 +5,9 @@ const middleware = require('./utils/middleware');
 const config = require('./utils/config');
 const mongoConnection = require('./utils/connect.database');
 
-
+/**
+ * Connection to BLOGS Mongo Database
+ */
 mongoConnection();    
 
 /**
