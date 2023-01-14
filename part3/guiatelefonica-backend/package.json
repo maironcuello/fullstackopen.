@@ -7,10 +7,11 @@
     "dev": "nodemon ./server/app.js",
     "start": "node ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -rf build && cd ../../part3/guiatelefonica-backend/ && npm run build --prod && cp -r build/ ../../part3/guiatelefonica-backend/",
+    "build:ui": "rm -rf build && cd ../../part2/guiatelefonica/ && npm run build && cp -r build/ ../../part3/guiatelefonica-backend/",
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint":"eslint"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.31.0",
     "nodemon": "^2.0.20"
   }
 }
