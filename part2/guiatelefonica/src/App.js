@@ -16,7 +16,12 @@ import { Notification } from "./components/Notification";
 /**
  * Import our methods for interacting with the rest server
  */
-import { getAllContact, createContact, updateContact, deleteContact, } from "./helpers/phone";
+import { 
+  getAllContact, 
+  createContact, 
+  updateContact, 
+  deleteContact  
+} from "./helpers/phone";
 
 export const App = () => {
   const [persons, setPersons] = useState([]);
@@ -97,6 +102,7 @@ export const App = () => {
       if (window.confirm(`${newName} is already added to phonebook, do you want to replace it?`)) {
         updateContact({ id: contactTofind.id, name: newName, number: phoneNumber })
           .then((data) => {
+            console.log('from updateContact',data);
             setMessage({ nota: `Contact ${data.name} Updated successfully`, type: 'success' });
             const newPersonsFilter = personsFilter.filter((person) => person.name !== newName);
             setPersonsFilter([...newPersonsFilter, data]);

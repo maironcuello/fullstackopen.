@@ -2,6 +2,13 @@ import axios from "axios";
 
 const url = "http://localhost:8000/api/persons/";
 
+
+const getContact = async(id) => {
+  const response = await axios.get(`${url}${id}`);
+  console.log(response.data);
+  return response.data;
+}
+
 const getAllContact = async (state) => {
   const response = await axios.get(url);
   state(response.data);
@@ -23,4 +30,4 @@ const deleteContact = async (id) => {
     return response.data;
 };
 
-export { getAllContact, createContact, updateContact, deleteContact };
+export { getContact, getAllContact, createContact, updateContact, deleteContact };
