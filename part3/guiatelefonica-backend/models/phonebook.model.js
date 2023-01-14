@@ -4,7 +4,8 @@ const { Schema, model } = mongoose;
 const PersonSchema = Schema({
     name :{
        type: String,
-       required: [true, 'Person name is required']
+       required: [true, 'Person name is required'],
+       minlength:12
    },
    number :{
        type: String,

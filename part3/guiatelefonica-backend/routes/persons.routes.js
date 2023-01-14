@@ -16,7 +16,7 @@ const router = Router();
 /**
  * Creating morgan token from JSON object
  */
-morgan.token("body", (request) => request.method === 'POST'? JSON.stringify(request.body): '');
+// morgan.token("body", (request) => request.method === 'POST'? JSON.stringify(request.body): '');
 
 /**
 * Routes for the server
