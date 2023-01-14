@@ -26,7 +26,6 @@ class Backendserver {
     await dbConection();
   }
 
-
   /**
    * Middleware
    */

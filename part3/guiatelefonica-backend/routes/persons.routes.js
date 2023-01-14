@@ -19,12 +19,12 @@ const router = Router();
 morgan.token("body", (request) => request.method === 'POST'? JSON.stringify(request.body): '');
 
 /**
- * Routes for the server
- */
-router.get("/", getAllPersons);
-router.get("/:id", getPerson);
-router.post("/", createPerson);
-router.put("/:id", updatePerson);
-router.delete("/:id", deletePerson);
+* Routes for the server
+*/
+router.get('/', getAllPersons);
+router.get('/:id', getPerson);
+router.post('/', createPerson);
+router.put('/:id', updatePerson);
+router.delete('/:id', deletePerson);
 
 module.exports = router;
