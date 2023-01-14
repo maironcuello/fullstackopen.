@@ -1,5 +1,5 @@
-const Person = require('../models/phonebook.model');
-const { request, response } = require("express");
+const Person = require('../models/phonebook.model')
+const { request, response } = require('express')
 const {
   getContactById,
   getContactByName,
@@ -11,57 +11,61 @@ const {
 
 /**
  * 
- * @param {*} error 
- * @returns  Error message personality
+ * @param {*} req caprure request id 
+ * @param {*} res Send all object contact in response or error if database no error
  */
-const handleError = (error) => response.status('500').json(`${error} something wrong in request`);
-
 const getAllPersons = async (req = request, res = response) => {
-
-  try {
-    const contacts = await Person.find();
-    return res.status(200).json(contacts)
-  } catch (error) {
-    return res.status('400').json(`${error} Bad request`);
-  }
-  
+  await Person.find()
+    .then(contacts => res.status(200).json(contacts))
+    .catch(error => res.status(503).json(`Database response error: ${error}`));
 };
 
+/**
+ * 
+ * @param {*} req Caprure request id 
+ * @param {*} res Send a object contact in response or an error if database no work
+ */
 const getPerson = async (req = request, res = response) => {
   const { id } = req.params;
-
-  try {
-    const contactId = await Person.findById(id);
-    return res.status(200).json(contactId);
-
-  } catch (error) {
-    return res.status('400').json(`Bad request from server ${error}`);
-  }
+  await Person.findById(id)
+    .then(contactId => res.status(200).json(contactId))
+    .catch(error => res.status(503).json(`Something wrong in database request`));
 };
 
+/**
+ * @param {*} req Capture contact information in request
+ * @param {*} res Send a object contact in response
+ * First checkin if name already exists, if not existing create new contact
+ */
 const createPerson = async (req = request, res = response) => {
   const { name, number } = req.body;
-  if (name === '' || number === '') return res.status(400).json({ msg: `The name or number is required` });
-  if (getContactByName(name)) return res.status(404).json({ msg: `Contact ${name} is already exists` });
+  if (req.body === null) return res.status(400).json(req.body);
+  if (name === '' || number === '') return res.status(400).json({ msg: `The name and number is required` });
   const person = new Person({ name, number });
-  return await person.save()
-  .then((contact) => res.status(200).json(contact))
+  await person.save()
+    .then((contact) => res.status(200).json(contact))
+    .catch(error => res.status(503).json(`Something wrong in database request `));
 };
 
 const updatePerson = async (req = request, res = response) => {
   const { id } = req.params;
-  const { name, number } = req.body;
-  const isPerson = await Person.findByIdAndUpdate(id, { number });
-  if (!isPerson) return res.status(404).json({ msg: `Contact with ${id}and ${name} not exists` });
-  isPerson.number = number;
-  return res.status(200).json(isPerson);
+  const { number } = req.body;
+  await Person.findByIdAndUpdate(id, { number })
+    .then(contact => {
+      contact.number = number;
+      res.status(200).json(contact)
+    })
+    .catch(error => res.status(503).json(`Something wrong in database request`));
 }
 
 const deletePerson = async (req = request, res = response) => {
   const { id } = req.params;
   await Person.findByIdAndDelete(id)
-  .then((data) => res.status(200).json(data));
+    .then((contact) => res.status(200).json(contact));
 }
+
+
+
 module.exports = {
   getAllPersons,
   getPerson,
