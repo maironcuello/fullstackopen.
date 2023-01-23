@@ -9,10 +9,12 @@ const logger = require('./logger');
 mongoose.set('strictQuery', true);
 
 
+
 /**
  * Method to connecting server to database
  */
-const mongoConnection =  async() => {
+const mongoConnection = async () => {
+
     await mongoose.connect(config.MONGO_CNN)
         .then((connection) => {
             logger.info(`Connecting to mongoo database ${config.NAME} status : Online`);
