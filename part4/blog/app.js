@@ -1,10 +1,10 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const middleware = require('./utils/middleware');
 const config = require('./utils/config');
 const mongoConnection = require('./utils/connect.database');
 
+const app = express();
 /**
  * Connection to BLOGS Mongo Database
  */
@@ -20,6 +20,7 @@ app.use(middleware.requestLogger);
 /**
  * Middlware routes Blogs 
 */
+app.use(config.PATHUSERS, require('./routes/users.routes'));
 app.use(config.PATHBlOGS, require('./routes/blogs.routes'));
 
 /**
