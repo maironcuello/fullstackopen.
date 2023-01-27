@@ -11,8 +11,15 @@ const {
 
 
 router.get('/', getBlog);
-router.post('/', validateRoutes ,createBlog);
-router.delete('/:id', deleteBlog);
+
+router.post('/',
+    validateRoutes,
+    createBlog
+);
+router.delete('/:id', 
+    validateRoutes, 
+    deleteBlog
+);
 
 
 
