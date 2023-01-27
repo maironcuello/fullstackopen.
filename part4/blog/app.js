@@ -8,7 +8,7 @@ const app = express();
 /**
  * Connection to BLOGS Mongo Database
  */
-mongoConnection();    
+mongoConnection();
 
 /**
  * Middleware
@@ -20,6 +20,7 @@ app.use(middleware.requestLogger);
 /**
  * Middlware routes Blogs 
 */
+app.use(config.PATHLOGIN, require('./routes/login.routes'));
 app.use(config.PATHUSERS, require('./routes/users.routes'));
 app.use(config.PATHBlOGS, require('./routes/blogs.routes'));
 
