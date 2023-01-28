@@ -1,5 +1,6 @@
 import React from 'react'
 import { BlobComponent } from './Blob.component'
+import { setLocalStorage } from '../utils/localstorage'
 
 export const ShowblogsComponent = (
     { showblogProps: {
@@ -8,9 +9,16 @@ export const ShowblogsComponent = (
         setLogin
     } }) => {
 
+    const logout = () => {
+
+        setLogin(false);
+        setLocalStorage({ username: '', token: null })
+    }
+
+
     return (
         <>
-            <h2>{`User: ${username}`}</h2>
+            <h2>{`User: ${username} logged In`}</h2>
             <h1>Blogs list</h1>
             <table>
                 <tr>
@@ -19,9 +27,9 @@ export const ShowblogsComponent = (
                     <th>Likes</th>
                     <th>Url</th>
                 </tr>
-            </table> 
-            { blogs.map((blog) => <BlobComponent key={blog.id} {...blog} />)}
-            <button onClick={() => setLogin(false)}>Exit</button>
+            </table>
+            {blogs.map((blog) => <BlobComponent key={blog.id} {...blog} />)}
+            <button onClick={() => logout()}>Logout</button>
         </>
     )
-}
+};
