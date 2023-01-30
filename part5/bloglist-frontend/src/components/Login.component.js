@@ -1,4 +1,8 @@
 import React, { useRef } from 'react'
+
+/**
+ *Our Method 
+ * */    
 import { getLogin } from '../utils/connection-axios';
 import { setLocalStorage } from '../utils/localstorage';
 
@@ -14,26 +18,35 @@ export const LoginComponent = (
 
     const onLogin = async (e) => {
         e.preventDefault();
-        const usernameToLogin = userNameRef.current.value
-        const passwordToLogin = passwordRef.current.value
+        const usernameToLogin = userNameRef.current.value;
+        const passwordToLogin = passwordRef.current.value;
         
         const userToLogin = { 
             username: usernameToLogin, 
             password: passwordToLogin 
         }
-
+        /**
+         * To be login, If getLogin return an user, changed the state login.
+         * Record in local Storage, the username and token and for last changed
+         * the state of the username.
+         * If getLogin does not return an user, getting the error Axios and returned 
+         * message.
+         */
         const user = await getLogin(userToLogin);
         if (user.token) {
-            setLocalStorage({ token:user.token, username:user.username })
+            setLocalStorage({ token:user.token, username:user.username });
             setLogin(true);
             setUsername(user.username);
-            setToken(user.token)
+            userNameRef.current.value = '';
+            passwordRef.current.value = '';
         } else {
-            console.log(user)
+            console.log(user);
+            userNameRef.current.value = '';
+            passwordRef.current.value = '';
         }
     }
     return (
-        <div>
+        <>
             <h1>Log in to application</h1>
             <form onSubmit={onLogin}>
                 <input
@@ -50,6 +63,6 @@ export const LoginComponent = (
                 />
                 <button type='submit'>Login</button>
             </form>
-        </div>
+        </>
     )
 };

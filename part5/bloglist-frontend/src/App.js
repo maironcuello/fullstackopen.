@@ -1,43 +1,47 @@
 import React, { useState, useEffect } from 'react'
 
-import { ShowblogsComponent } from "./components/Showblogs.component";
+/** Our Components **/
+import { ShowComponent } from "./components/Show.component";
 import { LoginComponent } from "./components/Login.component";
+import { BlogsComponent } from './components/Blogs.Component';
+
+/** Our method **/
 import { getAllBlogs } from './utils/connection-axios';
-import { setLocalStorage, getLocalStorage } from './utils/localstorage';
-
-
 
 export function App() {
 
   const [blogs, setBlogs] = useState([]);
   const [login, setLogin] = useState(false);
   const [username, setUsername] = useState('');
-  const [token, setToken] = useState(null);
-
-  // setLocalStorage({ token, username })
-
+  
+  /** Everyting the app to run, getting data Blogd from backend **/
   useEffect(() => {
     getAllBlogs(setBlogs);
   }, []);
 
+  /**
+   * loginProos to LoginComponent
+   * showblogProps to ShowblogsComponent
+   */
   const loginProps = {
     setLogin,
     setUsername,
-    setToken
-  }
-
-  const showblogProps = {
+  };
+  const showProps = {
     username,
     blogs,
     setLogin
   }
 
-  return (
-    <div>
+  return !login ?
+    (
       <>
-        {!login ? <LoginComponent loginProps={loginProps} /> : false}
-        {!login ? false : <ShowblogsComponent showblogProps={showblogProps} />}
+        <LoginComponent loginProps={loginProps} />
       </>
-    </div>
-  )
+    ) : (
+      <>
+        <BlogsComponent setBlogs={setBlogs} blogs={blogs} />
+        <ShowComponent showProps={showProps} />
+      </>
+    )
 };
