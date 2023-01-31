@@ -2,15 +2,15 @@ import React, { useRef } from 'react'
 
 /**
  *Our Method 
- * */    
+ * */
 import { getLogin } from '../utils/connection-axios';
 import { setLocalStorage } from '../utils/localstorage';
 
 export const LoginComponent = (
     { loginProps: {
         setLogin,
+        setMessage,
         setUsername,
-        setToken
     } }) => {
 
     const userNameRef = useRef();
@@ -20,10 +20,10 @@ export const LoginComponent = (
         e.preventDefault();
         const usernameToLogin = userNameRef.current.value;
         const passwordToLogin = passwordRef.current.value;
-        
-        const userToLogin = { 
-            username: usernameToLogin, 
-            password: passwordToLogin 
+
+        const userToLogin = {
+            username: usernameToLogin,
+            password: passwordToLogin
         }
         /**
          * To be login, If getLogin return an user, changed the state login.
@@ -31,20 +31,18 @@ export const LoginComponent = (
          * the state of the username.
          * If getLogin does not return an user, getting the error Axios and returned 
          * message.
-         */
+        */
         const user = await getLogin(userToLogin);
-        if (user.token) {
-            setLocalStorage({ token:user.token, username:user.username });
-            setLogin(true);
-            setUsername(user.username);
-            userNameRef.current.value = '';
-            passwordRef.current.value = '';
-        } else {
-            console.log(user);
-            userNameRef.current.value = '';
-            passwordRef.current.value = '';
-        }
+        if (!user.token) return setMessage({ nota: 'Wrong username or password', type: 'error' });
+
+        setLocalStorage({ token: user.token, username: user.username });
+        setLogin(true);
+        setUsername(user.username);
+        userNameRef.current.value = '';
+        passwordRef.current.value = '';
+        setMessage({ nota: 'loged succefully!!!', type: 'success' });
     }
+
     return (
         <>
             <h1>Log in to application</h1>

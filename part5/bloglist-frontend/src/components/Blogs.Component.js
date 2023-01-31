@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getAllBlogs, createBlog } from "../utils/connection-axios";
 import { getLocalStorage } from "../utils/localstorage";
 
-export const BlogsComponent = ({ setBlogs, blogs }) => {
+export const BlogsComponent = ({createBlog:{ setBlogs, blogs , setMessage}}) => {
 
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -29,14 +29,11 @@ export const BlogsComponent = ({ setBlogs, blogs }) => {
 
         /** Created a new Blog in Database **/
         const blogToCreate = { title, author, url, token: username.token }
-        // const theLastBlog = 
-        await createBlog(blogToCreate);
-        await getAllBlogs(setBlogs);
 
         /** Update setBlog and rendering and clean inputs **/
-        // console.log(theLastBlog);
-        // const newBlogs = [...blogs, theLastBlog];
-        // setBlogs([newBlogs]);
+        await createBlog(blogToCreate);
+        await getAllBlogs(setBlogs);
+        setMessage({ nota: 'created Blog succefully!!!', type: 'success' });
         cleanInput();
     }
 
