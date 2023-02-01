@@ -5,11 +5,12 @@ import { ShowComponent } from "./components/Show.component";
 import { LoginComponent } from "./components/Login.component";
 import { BlogsComponent } from './components/Blogs.Component';
 import { MessageCompnnent } from './components/Message.componente';
+import { TogglableComponent } from './components/Togglable.component';
 
 /** Our method **/
 import { getAllBlogs } from './utils/connection-axios';
 
-export function App() {
+export const App = _ => {
 
   const [blogs, setBlogs] = useState([]);
   const [login, setLogin] = useState(false);
@@ -33,16 +34,18 @@ export function App() {
    */
   const loginProps = {
     setLogin,
+    setBlogs,
     setMessage,
-    setUsername,
+    setUsername
   };
   const showProps = {
-    username,
     blogs,
     setLogin
   }
   const createBlog = {
     blogs,
+    username,
+    setLogin,
     setBlogs,
     setMessage
   }
@@ -50,13 +53,17 @@ export function App() {
   return !login ?
     (
       <>
-        <MessageCompnnent message={message} />
         <LoginComponent loginProps={loginProps} />
+        <div className='mt2 mb1'>
+          <MessageCompnnent message={message} />
+        </div>
       </>
     ) : (
       <>
-        <MessageCompnnent message={message} />
         <BlogsComponent createBlog={createBlog} />
+        <div className='mt2 mb1'>
+          <MessageCompnnent message={message} />
+        </div>
         <ShowComponent showProps={showProps} />
       </>
     )

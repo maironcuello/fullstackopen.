@@ -1,20 +1,118 @@
 body {
+  background-color: rgb(83, 195, 158);
   margin: 0;
   padding: 0;
   height: 100vh;
   display: flex;
   justify-content: center;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.mt1 {
+  margin-top: 2rem;
+}
+
+.mt2 {
+  margin-top: 4rem;
+}
+
+.mb1 {
+  margin-bottom: 2rem;
+}
+
+.mb2 {
+  margin-bottom: 4rem;
+}
+.input {
+  background-color: rgb(203, 246, 246);
+  color: black;
+  font-size: 2rem;
+  height: 3rem;
+  width: 30rem;
+  border-radius: .5rem;
+  border: .1rem solid;
+}
+
+.button {
+  background-color: rgb(43, 134, 46);
+  color: black;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .5rem;
+  margin-bottom: .5rem;
+}
+
+.button-cancel {
+  background-color: rgba(255, 0, 0, 0.819);
+  color: black;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .2rem;
+  width: 100%;
+}
+.button-exit {
+  background-color: rgba(255, 0, 0, 0.819);
+  color: black;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .2rem;
+}
+
+.h1{
+  font-size: 5rem;
+}
+
+h1{
+  font-family:monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: left;
+}
+h2{
+  font-family:monospace;
+  font-size: 2rem;;
+  text-align: left;
+}
+td {
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 700;
+  width: 35rem;
+}
+th {
   
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  text-align: left;
+  font-size: 1.5rem;
+  width: 35rem;
 }
 
 .main.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 }
 
 .main.container__form {
@@ -25,17 +123,17 @@ body {
 
 .styleMessage {
   background: lightgrey;
-  font-size: 20px;      
-  border-style: solid;  
-  border-radius: 5px;   
-  padding: 10px;        
-  margin-bottom: 10px;  
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-.message-success {      
+.message-success {
   color: green;
 }
 
-.message-error {        
+.message-error {
   color: red;
 }

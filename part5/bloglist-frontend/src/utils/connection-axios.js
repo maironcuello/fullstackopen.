@@ -14,8 +14,16 @@ export const getBlog = (id) => { };
  * and changed the state blogs with the data 
  */
 export const getAllBlogs = async (state) => {
-    const response = await axios(`${config.URL}${config.BLOGS}`);
-    state(response.data)
+    const { data } = await axios({ method: 'get', baseURL: config.URL, url: config.BLOGS });
+    const blogsList = data.map(blog => (
+        {
+            id: blog.id,
+            title: blog.title,
+            author: blog.author,
+            likes: blog.likes,
+            url: blog.url
+        }));
+    state(blogsList);
 };
 
 /**
@@ -40,20 +48,18 @@ export const getLogin = async (userToLogin) => {
  * @param {*} blogToCreate New blog
  * Save a new blog in database
  */
-export const createBlog = async (blogToCreate) => {
+export const createBlog = async (blogToCreate, token) => {
 
-    const { token, ...rest } = blogToCreate;
-    
     /**
      * Send petition Axios with the token.
      * Get Data.  
      */
     const response = await axios.post(
         `${config.URL}${config.BLOGS}`,
-        rest,
+        blogToCreate,
         {
             validateStatus: (status) => status < 500,
-            headers: { 'token': `${token}` }
+            headers: { 'token': token }
         }
     );
 

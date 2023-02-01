@@ -3,14 +3,15 @@ import React, { useRef } from 'react'
 /**
  *Our Method 
  * */
-import { getLogin } from '../utils/connection-axios';
+import { getLogin, getAllBlogs } from '../utils/connection-axios';
 import { setLocalStorage } from '../utils/localstorage';
 
 export const LoginComponent = (
     { loginProps: {
-        setLogin,
-        setMessage,
         setUsername,
+        setLogin,
+        setBlogs,
+        setMessage,
     } }) => {
 
     const userNameRef = useRef();
@@ -26,7 +27,7 @@ export const LoginComponent = (
             password: passwordToLogin
         }
         /**
-         * To be login, If getLogin return an user, changed the state login.
+         * To be login, If getLogin return an user with token, changed the state login.
          * Record in local Storage, the username and token and for last changed
          * the state of the username.
          * If getLogin does not return an user, getting the error Axios and returned 
@@ -36,31 +37,34 @@ export const LoginComponent = (
         if (!user.token) return setMessage({ nota: 'Wrong username or password', type: 'error' });
 
         setLocalStorage({ token: user.token, username: user.username });
-        setLogin(true);
         setUsername(user.username);
-        userNameRef.current.value = '';
-        passwordRef.current.value = '';
+        setLogin(true);
+        await getAllBlogs(setBlogs);
         setMessage({ nota: 'loged succefully!!!', type: 'success' });
     }
 
     return (
         <>
-            <h1>Log in to application</h1>
-            <form onSubmit={onLogin}>
-                <input
-                    ref={userNameRef}
-                    type="text"
-                    id="username"
-                    required
-                />
-                <input
-                    ref={passwordRef}
-                    type='password'
-                    id='password'
-                    required
-                />
-                <button type='submit'>Login</button>
-            </form>
+            <div >
+                <h1 className='mt2' >Log in to Application</h1>
+                <form onSubmit={onLogin} className='flex column mt2 border'>
+                    <input
+                        className='mb1 input'
+                        ref={userNameRef}
+                        type="text"
+                        id="username"
+                        required
+                    />
+                    <input
+                        className='mb1 input'
+                        ref={passwordRef}
+                        type='password'
+                        id='password'
+                        required
+                    />
+                    <button className='button' type='submit'>Login</button>
+                </form>
+            </div>
         </>
     )
 };
