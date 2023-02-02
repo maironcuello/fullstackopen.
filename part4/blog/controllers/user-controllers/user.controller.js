@@ -1,7 +1,7 @@
 const { request, response } = require('express');
-const User = require('../models/user.model');
+const User = require('../../models/user.model');
 const bcrypt = require('bcryptjs');
-const { encrypPassword } = require('../utils/encrypt.password');
+const { encrypPassword } = require('../../utils/encrypt.password');
 /**
  * 
  * @param {*} req get requests from user 
@@ -25,9 +25,9 @@ const createUser = async (req = request, res = response) => {
     if (name === '' || password === '') {
         return res.status(300).json({ error: 'User and password are required' })
     }
-    if (lenghtName < 3 || lenghtPassword < 3) {
-        return res.status(206).json({ msg: 'User and password require more that 3 character' })
-    }
+    // if (lenghtName < 3 || lenghtPassword < 3) {
+    //     return res.status(206).json({ msg: 'User and password require more that 3 character' })
+    // }
     
     const user = new User({ username, name, password })
     user.password = encrypPassword(password)

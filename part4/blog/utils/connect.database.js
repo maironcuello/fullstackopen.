@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Blog = require('../models/blog.model');
 const config = require('./config');
 const logger = require('./logger');
 

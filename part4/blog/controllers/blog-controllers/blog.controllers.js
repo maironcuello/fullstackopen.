@@ -1,8 +1,9 @@
 const { request, response } = require('express');
-const Blog = require('../models/blog.model');
-const User = require('../models/user.model');
+const Blog = require('../../models/blog.model');
+const User = require('../../models/user.model');
 const jwt = require('jsonwebtoken');
-const config = require('../utils/config');
+const config = require('../../utils/config');
+const { error } = require('../../utils/logger');
 
 /**
  * @param {*} req captured request object 
@@ -28,7 +29,7 @@ const createBlog = async (req = request, res = response) => {
      */
     const { title, author, url, likes, userId } = req.body;
     if (title === '' || author === '' || url === '') return res.json({ mgs: 'title or author or url are required' });
-    
+
     /**
      * Finding user with id get the token in database
      * and save
@@ -45,8 +46,24 @@ const createBlog = async (req = request, res = response) => {
     res.status(200).json(savedBlog).end();
 }
 
+
+const updateBlog = async (req = request, res = response) => {
+    const { id } = req.params;
+    const blogToUpdate = { title, author, url } = req.body
+
+    try {
+        const blog = await Blog.findByIdAndUpdate(id, blogToUpdate);
+        console.log(blog);
+        res.status(200).json({msg:'Blog updated succefully'});
+        
+    } catch (error) {
+        if(error) res.status(401).json({msg: 'Can not update the blog'})
+    }
+
+}
+
 const deleteBlog = async (req = request, res = response) => {
-    
+
     /**
      * Getting id to delete blog and check that id is valid in database
      */
@@ -57,7 +74,7 @@ const deleteBlog = async (req = request, res = response) => {
 
     /**
      * Checking that the blog was created by user with this token
-     */
+    */
     if (blog.user.toString() === req.id) {
         await Blog.findByIdAndRemove(id);
         res.status(200).json({ msg: 'Blod was removed succesully!!' });
@@ -69,5 +86,6 @@ const deleteBlog = async (req = request, res = response) => {
 module.exports = {
     getBlog,
     createBlog,
+    updateBlog,
     deleteBlog
 }; 

@@ -6,8 +6,9 @@ const { validateRoutes } = require('../utils/validate-routes.middleware');
 const {
     getBlog,
     createBlog,
+    updateBlog,
     deleteBlog
-} = require('../controllers/blog.controllers');
+} = require('../controllers/blog-controllers/blog.controllers');
 
 
 router.get('/', getBlog);
@@ -16,8 +17,12 @@ router.post('/',
     validateRoutes,
     createBlog
 );
-router.delete('/:id', 
-    validateRoutes, 
+router.put('/:id',
+    validateRoutes,
+    updateBlog);
+
+router.delete('/:id',
+    validateRoutes,
     deleteBlog
 );
 
