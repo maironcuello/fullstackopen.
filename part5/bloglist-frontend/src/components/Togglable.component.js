@@ -18,7 +18,9 @@ export const TogglableComponent = ({ nameButton, children }) => {
                 </div>
                 <div style={displayShow}>
                     {children}
-                    <button className='button-cancel' onClick={toggable}>cancel</button>
+                    <div className='flex'>
+                        <button className='button-cancel pointer' onClick={toggable}>cancel</button>
+                    </div>
                 </div>
             </div>
         </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 /** Our Method **/
-import { updateBlog } from '../utils/connection-axios'
+import { updateBlog, deleteBlog } from '../utils/connection-axios'
 
 /** Our Component **/
 import { BlogComponent } from './Blog.component'
@@ -24,12 +24,20 @@ export const ShowComponent = (
         newBlogs.sort((a, b) => b.likes - a.likes);
         setBlogs(newBlogs);
     };
+    const deleteToBlog = async (id) => {
+        if (window.confirm('Are you sure, wants to delete this blog')) {
+            await deleteBlog(id);
+            const newBlogs = blogs.filter(blog => blog.id !== id)
+            setBlogs(newBlogs);
+        }
+
+    }
 
     return (
         <>
             <div>
                 <h2>Title</h2>
-                {blogs.map((blog) => (<BlogComponent key={blog.id} blog={blog} addLike={addLike} />
+                {blogs.map((blog) => (<BlogComponent key={blog.id} blog={blog} addLike={addLike} deleteToBlog={deleteToBlog} />
                 ))};
             </div>
         </>

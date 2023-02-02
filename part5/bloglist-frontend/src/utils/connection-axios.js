@@ -23,7 +23,6 @@ export const getAllBlogs = async (state) => {
             likes: blog.likes,
             url: blog.url
         })).sort((a, b) => b.likes - a.likes);
-    // blogsList
     state(blogsList);
 };
 
@@ -69,16 +68,20 @@ export const createBlog = async (blogToCreate, token) => {
 
 export const updateBlog = async (id, object) => {
     const { token } = getLocalStorage();
-    // console.log(`${config.URL}${config.BLOGS}${id}`);
-    // console.log(object);
     const response = await axios.put(`${config.URL}${config.BLOGS}${id}`, object, {
         validateStatus: (status) => status < 500,
         headers: { 'token': token }
     });
-    // console.log(response.data);
     return response.data;
 
 };
 
 
-export const deleteBlogs = (id) => { };
+export const deleteBlog = async (id) => {
+    const { token } = getLocalStorage();
+    const response = await axios.delete(`${config.URL}${config.BLOGS}${id}`,{
+        validateStatus: (status) => status < 500,
+        headers: { 'token': token }
+    });
+    return response.data;
+};
