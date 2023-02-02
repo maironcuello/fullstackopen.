@@ -22,7 +22,8 @@ export const getAllBlogs = async (state) => {
             author: blog.author,
             likes: blog.likes,
             url: blog.url
-        }));
+        })).sort((a, b) => b.likes - a.likes);
+    // blogsList
     state(blogsList);
 };
 

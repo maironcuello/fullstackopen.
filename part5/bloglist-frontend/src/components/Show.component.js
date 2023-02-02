@@ -21,6 +21,7 @@ export const ShowComponent = (
         await updateBlog(id, { likes: currentLike });
         const newBlogs = [...blogs]
         newBlogs.forEach(blog => blog.id === id ? blog.likes = currentLike : blog.likes);
+        newBlogs.sort((a, b) => b.likes - a.likes);
         setBlogs(newBlogs);
     };
 
