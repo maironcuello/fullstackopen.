@@ -19,15 +19,14 @@ export const BlogsComponent = ({
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [url, setUrl] = useState('');
-
-    /**
-     * Clean Inputs
-     */
+    
+    /** Clean Inputs */
     const cleanInput = () => {
         setTitle('');
         setAuthor('');
         setUrl('')
     }
+
     /**
      * @param {*} e Hear event
      * Here, capture information from input, then updating
@@ -35,7 +34,6 @@ export const BlogsComponent = ({
      */
     const onCreateBlog = async (e) => {
         e.preventDefault();
-
         try {
             /**  Getted username and token from localStorage **/
             const { token } = getLocalStorage();
@@ -65,15 +63,15 @@ export const BlogsComponent = ({
     return (
         <>
             <div className='flex-center column'>
-                <h1 className='h1'>Blogs</h1>
-                <div className='flex space-between mb1 mt1'>
+                <h2 className='h1'>Blogs</h2>
+                <div className='flex space-between mb1 border logout' >
                     <h1>{`${username} - logged IN`}</h1>
                     <button className='button-exit' onClick={() => logout()}>Logout</button>
                 </div>
                 <div>
                     <TogglableComponent nameButton='Create New Blog'>
                         <h1>New blog</h1>
-                        <form className='flex column' onSubmit={onCreateBlog} >
+                        <form className='flex column border' onSubmit={onCreateBlog} >
                             <input
                                 className='input mb1'
                                 value={title}

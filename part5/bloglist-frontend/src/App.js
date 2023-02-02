@@ -5,7 +5,6 @@ import { ShowComponent } from "./components/Show.component";
 import { LoginComponent } from "./components/Login.component";
 import { BlogsComponent } from './components/Blogs.Component';
 import { MessageCompnnent } from './components/Message.componente';
-import { TogglableComponent } from './components/Togglable.component';
 
 /** Our method **/
 import { getAllBlogs } from './utils/connection-axios';
@@ -40,7 +39,7 @@ export const App = _ => {
   };
   const showProps = {
     blogs,
-    setLogin
+    setBlogs
   }
   const createBlog = {
     blogs,

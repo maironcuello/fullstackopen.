@@ -43,13 +43,16 @@ body {
 .input {
   background-color: rgb(203, 246, 246);
   color: black;
-  font-size: 2rem;
+  font-size: 1.5rem;
   height: 3rem;
-  width: 30rem;
-  border-radius: .5rem;
+  width: 48rem;
+  border-radius: .2rem;
   border: .1rem solid;
 }
 
+.logout{
+  width: 50rem;
+}
 .button {
   background-color: rgb(43, 134, 46);
   color: black;
@@ -57,10 +60,22 @@ body {
   font-size: 1.5rem;
   padding: 1rem;
   border: none;
-  border-radius: .5rem;
+  border-radius: .2rem;
   margin-bottom: .5rem;
 }
+.button-like {
+  background-color: rgb(35, 21, 240);
+  color: white;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding:  1rem 1rem;
+  border: none;
+  border-radius: .2rem;
+  margin-bottom: .5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 
+}
 .button-cancel {
   background-color: rgba(255, 0, 0, 0.819);
   color: black;
@@ -90,25 +105,26 @@ h1{
   font-size: 2.5rem;
   font-weight: 700;
   text-align: left;
+  margin-left: 1rem;
 }
 h2{
   font-family:monospace;
   font-size: 2rem;;
   text-align: left;
 }
-td {
+h3 {
   text-align: left;
   font-size: 2rem;
   font-weight: 700;
-  width: 35rem;
+  width: 40rem;
+  margin-left: 1rem;
 }
-th {
-  
-  text-align: left;
-  font-size: 1.5rem;
-  width: 35rem;
+form {
+  padding: 1rem;
 }
-
+.border {
+  border: .1rem solid;
+}
 .main.container {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 /** Our Method **/
 import { config } from './env.configurations';
-
+import { getLocalStorage } from './localstorage';
 /**
  * @param {*} id identify of the blog
  */
@@ -50,7 +50,7 @@ export const getLogin = async (userToLogin) => {
  */
 export const createBlog = async (blogToCreate, token) => {
 
-    /**
+    /** 
      * Send petition Axios with the token.
      * Get Data.  
      */
@@ -66,5 +66,18 @@ export const createBlog = async (blogToCreate, token) => {
     return response.data;
 };
 
-export const updateBlogs = (id, object) => { };
+export const updateBlog = async (id, object) => {
+    const { token } = getLocalStorage();
+    // console.log(`${config.URL}${config.BLOGS}${id}`);
+    // console.log(object);
+    const response = await axios.put(`${config.URL}${config.BLOGS}${id}`, object, {
+        validateStatus: (status) => status < 500,
+        headers: { 'token': token }
+    });
+    // console.log(response.data);
+    return response.data;
+
+};
+
+
 export const deleteBlogs = (id) => { };
