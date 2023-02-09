@@ -49,37 +49,40 @@ const createBlog = async (req = request, res = response) => {
 
 const updateBlog = async (req = request, res = response) => {
     const { id } = req.params;
-    const blogToUpdate = { title, author, url } = req.body
+    const blogToUpdate = { likes } = req.body
 
     try {
+
         const blog = await Blog.findByIdAndUpdate(id, blogToUpdate);
         console.log(blog);
-        res.status(200).json({msg:'Blog updated succefully'});
-        
-    } catch (error) {
-        if(error) res.status(401).json({msg: 'Can not update the blog'})
-    }
+        res.status(200).json({ msg: 'Blog updated succefully' });
 
+    } catch (error) {
+
+        if (error) res.status(401).json({ msg: 'Can not update the blog' })
+    }
 }
 
 const deleteBlog = async (req = request, res = response) => {
 
-    /**
-     * Getting id to delete blog and check that id is valid in database
-     */
-    const { id } = req.params;
-    if (!id) return res.status(401).json({ msg: 'should to send a valid Id!!' }); //TODO for to check
-    const blog = await Blog.findById(id);
-    if (!blog) return res.status(401).json({ msg: "This Id, is not valid in database!!" });
 
-    /**
-     * Checking that the blog was created by user with this token
-    */
-    if (blog.user.toString() === req.id) {
-        await Blog.findByIdAndRemove(id);
-        res.status(200).json({ msg: 'Blod was removed succesully!!' });
-    } else {
-        res.status(401).json({ msg: `Blog ${blog.title} does not remove for this user` });
+    try {
+
+        /** Getting id to delete blog and check that id is valid in database **/
+        const { id } = req.params;
+        const blog = await Blog.findById(id);
+
+        /** Checking that the blog was created by user with this token **/
+        if (blog.user.toString() === req.id) {
+            await Blog.findByIdAndRemove(id);
+            res.status(200).json({ msg: 'Blod was removed succesully!!' });
+        } else {
+            return res.status(401).json({ msg: `Blog ${blog.title} does not remove for this user` });
+        }
+
+    } catch (error) {
+
+        return res.status(401).json({ msg: "This Id, is not valid in database!!" });
     }
 }
 

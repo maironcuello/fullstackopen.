@@ -17,6 +17,7 @@ router.post('/',
     validateRoutes,
     createBlog
 );
+
 router.put('/:id',
     validateRoutes,
     updateBlog);

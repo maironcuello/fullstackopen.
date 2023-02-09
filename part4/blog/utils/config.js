@@ -8,11 +8,11 @@ NAME = 'BLOGS';
 PATHLOGIN = '/api/login';
 PATHUSERS = '/api/users';
 PATHBlOGS = '/api/blogs';
+PATHRESET = '/api/testing/reset';
 NAME_APP='Blogs';
-
-if (process.env.NODE_ENV === 'test') {
-    MONGO_CNN = process.env.TEST_MONGO_CNN
-}
+// if (process.env.NODE_ENV === 'test') {
+//     MONGO_CNN = process.env.TEST_MONGO_CNN
+// }
 
 module.exports = {
     PORT,
@@ -22,5 +22,6 @@ module.exports = {
     MONGO_CNN,
     NAME,
     PATHBlOGS,
+    PATHRESET,
     NAME_APP
 };

@@ -14,13 +14,20 @@ mongoose.set('strictQuery', true);
  */
 const mongoConnection = async () => {
 
-    await mongoose.connect(config.MONGO_CNN)
-        .then((connection) => {
-            logger.info(`Connecting to mongoo database ${config.NAME} status : Online`);
-        })
-        .catch((error) => {
-            logger.error(`Connecting to mongoo database ${config.NAME} status : Ofline`);
-        });
+
+    try {
+
+        console.log('State :', process.env.NODE_ENV)
+        if (process.env.NODE_ENV === 'test') {
+            MONGO_CNN = process.env.TEST_MONGO_CNN
+        }
+        await mongoose.connect(MONGO_CNN);
+        logger.info(`Connecting to mongoo database ${config.NAME} status : Online`);
+
+    } catch (error) {
+        logger.error(`Connecting to mongoo database ${config.NAME} status : Ofline`);
+    }
+
 }
 
 module.exports = mongoConnection;
