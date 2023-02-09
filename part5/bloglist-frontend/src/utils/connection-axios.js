@@ -6,7 +6,7 @@ import { getLocalStorage } from './localstorage';
 /**
  * @param {*} id identify of the blog
  */
-export const getBlog = (id) => { };
+// export const getBlog = (id) => { };
 
 /**
  * @param {*} state -> setBlogs
@@ -54,13 +54,10 @@ export const createBlog = async (blogToCreate, token) => {
      * Send petition Axios with the token.
      * Get Data.  
      */
-    const response = await axios.post(
-        `${config.URL}${config.BLOGS}`,
-        blogToCreate,
-        {
-            validateStatus: (status) => status < 500,
-            headers: { 'token': token }
-        }
+    const response = await axios.post(`${config.URL}${config.BLOGS}`, blogToCreate, {
+        validateStatus: (status) => status < 500,
+        headers: { 'token': token }
+    }
     );
 
     return response.data;
@@ -72,16 +69,17 @@ export const updateBlog = async (id, object) => {
         validateStatus: (status) => status < 500,
         headers: { 'token': token }
     });
-    return response.data;
 
+    return response.data;
 };
 
 
 export const deleteBlog = async (id) => {
     const { token } = getLocalStorage();
-    const response = await axios.delete(`${config.URL}${config.BLOGS}${id}`,{
+    const response = await axios.delete(`${config.URL}${config.BLOGS}${id}`, {
         validateStatus: (status) => status < 500,
         headers: { 'token': token }
     });
+
     return response.data;
 };

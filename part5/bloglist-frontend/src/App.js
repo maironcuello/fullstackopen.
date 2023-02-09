@@ -9,7 +9,7 @@ import { MessageCompnnent } from './components/Message.componente';
 /** Our method **/
 import { getAllBlogs } from './utils/connection-axios';
 
-export const App = _ => {
+export const App = () => {
 
   const [blogs, setBlogs] = useState([]);
   const [login, setLogin] = useState(false);

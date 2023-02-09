@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-
+import PropTypes from 'prop-types';
 /**
  *Our Method 
  * */
@@ -49,22 +49,34 @@ export const LoginComponent = (
                 <h1 className='mt2' >Log in to Application</h1>
                 <form onSubmit={onLogin} className='flex column mt2 border'>
                     <input
+                        id="username"
                         className='mb1 input'
                         ref={userNameRef}
                         type="text"
-                        id="username"
                         required
                     />
                     <input
+                        id='password'
                         className='mb1 input'
                         ref={passwordRef}
                         type='password'
-                        id='password'
                         required
                     />
-                    <button className='button' type='submit'>Login</button>
+                    <button 
+                        id='login-button' 
+                        className='button' 
+                        type='submit'
+                    >Login
+                    </button>
                 </form>
             </div>
         </>
     )
 };
+
+LoginComponent.propTypes = {
+    setUsername: PropTypes.func,
+    setLogin: PropTypes.func,
+    setBlogs:PropTypes.func,
+    setMessage: PropTypes.func
+}

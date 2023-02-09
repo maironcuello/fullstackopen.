@@ -1,5 +1,8 @@
 import React from 'react'
 import { TogglableComponent } from './Togglable.component';
+import  PropTypes  from 'prop-types';
+
+
 
 export const BlogComponent = ({ blog: { title, author, likes, url, id }, addLike, deleteToBlog }) => {
 
@@ -13,8 +16,12 @@ export const BlogComponent = ({ blog: { title, author, likes, url, id }, addLike
                         <h3>{'Url : '}{url}</h3>
                         <h3>{'Title :'}{title}</h3>
                         <div className='flex space-between'>
-                            <h3>{'Likes : '}{likes}</h3>
-                            <button className='button-like' onClick={() => addLike(id)}>like</button>
+                            <h3>{'Likes :'}{likes}</h3>
+                            <button 
+                                className='button-like' 
+                                onClick={() => addLike(id)}
+                                id='button-like'    
+                                >like</button>
                         </div>
                     </div>
                     <div className='flex'>
@@ -25,4 +32,14 @@ export const BlogComponent = ({ blog: { title, author, likes, url, id }, addLike
 
         </>
     )
+}
+
+BlogComponent.propTypes = {
+    title: PropTypes.string,
+    author: PropTypes.string,
+    likes: PropTypes.number,
+    url: PropTypes.string,
+    id: PropTypes.string,
+    addLike: PropTypes.func,
+    deleteToBlog: PropTypes.func
 }

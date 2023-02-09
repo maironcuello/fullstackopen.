@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 export const MessageCompnnent = ({ message }) => {
 
     if (message === null) return null;
@@ -10,4 +10,8 @@ export const MessageCompnnent = ({ message }) => {
             </div>
         </>
     )
+}
+
+MessageCompnnent.propTypes = {
+    message: PropTypes.object
 }

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react';
+import  PropTypes  from 'prop-types';
 
 /** Our Method **/
-import { updateBlog, deleteBlog } from '../utils/connection-axios'
+import { updateBlog, deleteBlog } from '../utils/connection-axios';
 
 /** Our Component **/
-import { BlogComponent } from './Blog.component'
+import { BlogComponent } from './Blog.component';
 
 
 export const ShowComponent = (
@@ -12,8 +13,6 @@ export const ShowComponent = (
         setBlogs,
         blogs,
     } }) => {
-
-    // const [numlikes, setNumlikes] = useState(0);
 
     const addLike = async (id) => {
         const blog = blogs.find(blog => blog.id === id);
@@ -24,6 +23,7 @@ export const ShowComponent = (
         newBlogs.sort((a, b) => b.likes - a.likes);
         setBlogs(newBlogs);
     };
+    
     const deleteToBlog = async (id) => {
         if (window.confirm('Are you sure, wants to delete this blog')) {
             await deleteBlog(id);
@@ -43,3 +43,8 @@ export const ShowComponent = (
         </>
     )
 };
+
+ShowComponent.propTypes = {
+    setBlogs: PropTypes.func,
+    blogs: PropTypes.array,
+}   

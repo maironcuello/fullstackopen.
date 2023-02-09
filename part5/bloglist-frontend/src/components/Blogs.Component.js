@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import  PropTypes from 'prop-types';
 
 /** Our Method */
 import { createBlog } from "../utils/connection-axios";
@@ -19,7 +20,7 @@ export const BlogsComponent = ({
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [url, setUrl] = useState('');
-    
+
     /** Clean Inputs */
     const cleanInput = () => {
         setTitle('');
@@ -69,10 +70,11 @@ export const BlogsComponent = ({
                     <button className='button-exit' onClick={() => logout()}>Logout</button>
                 </div>
                 <div>
-                    <TogglableComponent nameButton='Create New Blog'>
+                    <TogglableComponent nameButton='New'>
                         <h1>New blog</h1>
                         <form className='flex column border' onSubmit={onCreateBlog} >
                             <input
+                                id='title'
                                 className='input mb1'
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
@@ -80,6 +82,7 @@ export const BlogsComponent = ({
                                 required
                             />
                             <input
+                                id='author'
                                 className='input mb1'
                                 value={author}
                                 onChange={(e) => setAuthor(e.target.value)}
@@ -87,17 +90,30 @@ export const BlogsComponent = ({
                                 required
                             />
                             <input
+                                id='url'
                                 className='input mb1'
                                 value={url}
                                 onChange={(e) => setUrl(e.target.value)}
                                 placeholder='Url'
                                 required
                             />
-                            <button className='button' type='submit'>Create</button>
+                            <button 
+                                id='button-create' 
+                                className='button' 
+                                type='submit'
+                            >Create</button>
                         </form>
                     </TogglableComponent>
                 </div>
             </div>
         </>
     )
+}
+
+BlogsComponent.propTypes = {
+    setLogin: PropTypes.func,
+    blogs: PropTypes.array,
+    setBlogs: PropTypes.func,
+    username: PropTypes.string,
+    setMessage: PropTypes.func
 }
