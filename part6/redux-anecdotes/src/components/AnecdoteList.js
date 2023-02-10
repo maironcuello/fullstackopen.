@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { initializeAnecdotes, addVoteOf } from '../reducers/anecdoteReducer'
-import { setNotification } from '../reducers/notificationReducer'
+import { initializeAnecdotes, addVoteOf } from '../reducers/anecdoteSlice'
+import { setNotification } from '../reducers/notificationSlice'
 
 const AnecdoteList = () => {
-  const anecdotes = useSelector((state) => state.anecdotes)
   const filter = useSelector((state) => state.filter)
+  const anecdotes = useSelector((state) => state.anecdotes)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -16,11 +16,10 @@ const AnecdoteList = () => {
     dispatch(addVoteOf(id))
     dispatch(setNotification(`Add new vote to: ${content}`), 10)
   }
-
   return (
     <>
-      {anecdotes
-        .filter((anecdote) => anecdote.content.includes(filter))
+      {anecdotes.value
+        .filter((anecdote) => anecdote.content.includes(filter.value))
         .sort((a, b) => b.votes - a.votes)
         .map((anecdote) => (
           <div key={anecdote.id}>
