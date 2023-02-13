@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 /**Our Compinents */
 import { AnecdoteList, CreateNew, About, Menu, Footer, Notification } from './components';
@@ -7,6 +7,7 @@ import { AnecdoteList, CreateNew, About, Menu, Footer, Notification } from './co
 
 export const App = () => {
 
+  const toNavigate = useNavigate();
   const [anecdotes, setAnecdotes] = React.useState([
     {
       content: 'If it hurts, do it more often',
@@ -25,28 +26,29 @@ export const App = () => {
   ])
 
   const [notification, setNotification] = React.useState({
-    message: 'Create succefully anecdote',
-    type: 'error'
+    message: '',
+    type: ''
   })
 
   React.useEffect(() => {
     setInterval(() => {
       setNotification('');
-    }, 3000);
+    }, 10000);
 
   }, [notification]);
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
-    setAnecdotes(anecdotes.concat(anecdote))
+    setAnecdotes([...anecdotes, anecdote]);
+    toNavigate('/');
+    setNotification({ message: 'Anectote created succefully', type: 'success' })
   }
 
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
-  const vote = (id) => {
+  const vote = (id) => {  
     const anecdote = anecdoteById(id)
-
     const voted = {
       ...anecdote,
       votes: anecdote.votes + 1
@@ -58,7 +60,7 @@ export const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      <BrowserRouter>
+      
         <Menu />
         <Notification notification={notification} />
         <Routes>
@@ -69,7 +71,6 @@ export const App = () => {
           <Route path='/about' element={<About />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
     </div>
   )
 }

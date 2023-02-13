@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreateNew = (props) => {
+const CreateNew = ({addNew}) => {
 
 	const [content, setContent] = React.useState('')
 	const [author, setAuthor] = React.useState('')
@@ -8,7 +8,7 @@ const CreateNew = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		props.addNew({
+		addNew({
 			content,
 			author,
 			info,

@@ -4,15 +4,15 @@ import { Link } from "react-router-dom"
 const Menu = () => {
 
 	const padding = {
-		paddingRight: 5
+		padding: 15
 	}
 	
 	return (
 		<>
-			<div>
-				<Link state={padding} to={'/anecdotes'}>anecdotes</Link>
-				<Link state={padding} to={'/create'}>create new</Link>
-				<Link state={padding} to={'/about'}>about</Link>
+			<div style={padding}>
+				<Link state={padding} to={'/anecdotes'}>anecdotes </Link>
+				<Link state={padding} to={'/create'}>create new  </Link>
+				<Link state={padding} to={'/about'}>about  </Link>
 			</div>
 		</>
 	)
