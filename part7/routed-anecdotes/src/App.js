@@ -1,17 +1,13 @@
-import { useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 /**Our Compinents */
-import { AnecdoteList } from "./components/AnecdoteList";
-import { CreateNew } from './components/CreateNew';
-import { About } from "./components/About";
-import { Menu } from './components/Menu';
-import { Footer } from "./components/Footer";
-
+import { AnecdoteList, CreateNew, About, Menu, Footer, Notification } from './components';
 
 
 export const App = () => {
-  const [anecdotes, setAnecdotes] = useState([
+
+  const [anecdotes, setAnecdotes] = React.useState([
     {
       content: 'If it hurts, do it more often',
       author: 'Jez Humble',
@@ -28,7 +24,17 @@ export const App = () => {
     }
   ])
 
-  const [notification, setNotification] = useState('')
+  const [notification, setNotification] = React.useState({
+    message: 'Create succefully anecdote',
+    type: 'error'
+  })
+
+  React.useEffect(() => {
+    setInterval(() => {
+      setNotification('');
+    }, 3000);
+
+  }, [notification]);
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
@@ -54,8 +60,10 @@ export const App = () => {
       <h1>Software anecdotes</h1>
       <BrowserRouter>
         <Menu />
+        <Notification notification={notification} />
         <Routes>
           <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
+          <Route path='/anecdotes/:id' element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path='/anecdotes' element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path='/create' element={<CreateNew addNew={addNew} />} />
           <Route path='/about' element={<About />} />
