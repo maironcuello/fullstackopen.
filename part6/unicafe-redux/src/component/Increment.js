@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
+/**Import the actions */
 import {
     incrementGood,
     incrementOk,
@@ -7,6 +9,10 @@ import {
     reset
 } from '../store/amount/action'
 
+/**
+ * @param {*} state the applications 
+ * @returns  Get the state
+ */
 const mapStateToProps = (state) => {
     return {
         good: state.amauntReducer.good,
@@ -40,4 +46,11 @@ const Increment = (
     )
 }
 
-export default connect(mapStateToProps, { incrementGood, incrementOk, incrementBad, reset })(Increment)
+export default connect(mapStateToProps,
+    {
+        incrementGood,
+        incrementOk,
+        incrementBad,
+        reset
+    }
+)(Increment)
