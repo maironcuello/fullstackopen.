@@ -37,6 +37,10 @@ export const App = () => {
 
   }, [notification]);
 
+  /**
+   * @param {*} anecdote is a new anecdote
+   * addNew : Create a new anecdote and update state
+   */
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
     setAnecdotes([...anecdotes, anecdote]);
@@ -47,30 +51,25 @@ export const App = () => {
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
-  const vote = (id) => {  
+  const vote = (id) => {
     const anecdote = anecdoteById(id)
-    const voted = {
-      ...anecdote,
-      votes: anecdote.votes + 1
-    }
-
+    const voted = { ...anecdote, votes: anecdote.votes + 1 }
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
 
   return (
     <div>
       <h1>Software anecdotes</h1>
-      
-        <Menu />
-        <Notification notification={notification} />
-        <Routes>
-          <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
-          <Route path='/anecdotes/:id' element={<AnecdoteList anecdotes={anecdotes} />} />
-          <Route path='/anecdotes' element={<AnecdoteList anecdotes={anecdotes} />} />
-          <Route path='/create' element={<CreateNew addNew={addNew} />} />
-          <Route path='/about' element={<About />} />
-        </Routes>
-        <Footer />
+      <Menu />
+      <Notification notification={notification} />
+      <Routes>
+        <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path='/anecdotes/:id' element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path='/anecdotes' element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path='/create' element={<CreateNew addNew={addNew} />} />
+        <Route path='/about' element={<About />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }

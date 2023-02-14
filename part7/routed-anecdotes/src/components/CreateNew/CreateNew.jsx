@@ -1,38 +1,40 @@
 import React from 'react';
+import { useField } from '../../hooks';
 
-const CreateNew = ({addNew}) => {
 
-	const [content, setContent] = React.useState('')
-	const [author, setAuthor] = React.useState('')
-	const [info, setInfo] = React.useState('')
+const CreateNew = ({ addNew }) => {
 
+	const content = useField('content');
+	const author = useField('author');
+	const info = useField('info');
+	
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		addNew({
-			content,
-			author,
-			info,
-			votes: 0
-		})
+		addNew({ content: content.value, author: author.value, info: info.value, votes: 0 })
 	}
-
+	const handlreset = () => {
+		content.useField('reset');
+		author.useField('reset');
+		info.useField('reset');
+	}
 	return (
 		<>
 			<h2>create a new anecdote</h2>
 			<form onSubmit={handleSubmit}>
 				<div>
-					content
-					<input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+					content:
+					<input {...content} />
 				</div>
 				<div>
-					author
-					<input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+					author:
+					<input {...author} />
 				</div>
 				<div>
-					url for more info
-					<input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+					url for more info:
+					<input {...info} />
 				</div>
 				<button type='submit'>create</button>
+				<button onClick={handlreset}>create</button>
 			</form>
 		</>
 	)
