@@ -1,0 +1,178 @@
+body {
+  background-color: rgb(83, 195, 158);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.space-between {
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.mt1 {
+  margin-top: 2rem;
+}
+
+.mt2 {
+  margin-top: 4rem;
+}
+
+.mb1 {
+  margin-bottom: 2rem;
+}
+
+.mb2 {
+  margin-bottom: 4rem;
+}
+
+.input {
+  background-color: rgb(203, 246, 246);
+  color: black;
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 48rem;
+  border-radius: .2rem;
+  border: .1rem solid;
+}
+
+.logout {
+  width: 50rem;
+}
+
+.button {
+  background-color: rgb(43, 134, 46);
+  color: black;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .2rem;
+  margin-bottom: .5rem;
+}
+
+.button-like {
+  background-color: rgb(35, 21, 240);
+  color: white;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem 1rem;
+  border: none;
+  border-radius: .2rem;
+  margin-bottom: .5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+
+}
+
+.button-cancel {
+  background-color: rgba(255, 0, 0, 0.819);
+  color: white;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .2rem;
+  width: 9.5rem;
+}
+
+.button-delete {
+  background-color: rgb(43, 134, 46);
+  color: white;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .2rem;
+  margin-bottom: .5rem;
+}
+
+.button-exit {
+  background-color: rgba(255, 0, 0, 0.819);
+  color: black;
+  font-weight: 100;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: .2rem;
+}
+
+.h1 {
+  font-size: 5rem;
+}
+
+h1 {
+  font-family: monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+h2 {
+  font-family: monospace;
+  font-size: 2rem;
+  ;
+  text-align: left;
+}
+
+h3 {
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 700;
+  width: 40rem;
+  margin-left: 1rem;
+}
+
+form {
+  padding: 1rem;
+}
+
+.border {
+  border: .1rem solid;
+}
+
+.main.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main.container__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.styleMessage {
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.message-success {
+  color: green;
+}
+
+.message-error {
+  color: red;
+}
