@@ -12,15 +12,10 @@ export const messageSlice = createSlice({
     initialState,
     reducers: {
         setMessage: (state, action) => {
-            return state = action.payload
-            // state.nota = action.payload.nota
-            // state.type = action.payload.type 
-            // state = {...state, ...action.payload} 
+            return action.payload
         },
-        resetMessage: (state) => {
-            // return  [...state, message]
-            state.nota = message.nota
-            state.type = message.type 
+        resetMessage: () => {
+            return  message;
         }
 
     }

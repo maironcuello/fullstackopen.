@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import React from 'react'
 
 const useField = (type, defaultValue = '') => {
-    const [value, setValue] = useState(defaultValue)
+    const [value, setValue] = React.useState(defaultValue)
 
     const onChange = (event) => {
         setValue(event.target.value)

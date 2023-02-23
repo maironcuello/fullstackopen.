@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { setBlogs } from '../../reduxs/blogsSlice'; 
+import { setBlogs } from '../../reduxs/blogs/blogsSlice'; 
 /** Our Method **/
-import { updateBlog, deleteBlog } from '../../utils/';
+import { updateBlog, deleteBlog } from '../../utilities';
 
 /** Our Component **/
 import { Blog } from '../Blog';
@@ -11,7 +11,7 @@ import { Blog } from '../Blog';
 const Show = () => {
     const dispatch = useDispatch();
     const blogs = useSelector(state => state.blogs.value);
-
+    // const users = useSelector(state => state.users);
     const addLike = async (id) => {
         const blog = blogs.find(blog => blog.id === id);
         const newLikes = {

@@ -16,11 +16,11 @@ const Togglable = ({ nameButton, children }) => {
 
     return (
         <>
-            <div className='flex '>
+            <div>
                 <div style={displayHide} >
                     <button
+                        className='logout'
                         id='new-blog'
-                        className='button'
                         onClick={toggable}
                     >{nameButton}
                     </button>
@@ -29,10 +29,10 @@ const Togglable = ({ nameButton, children }) => {
                     {children}
                     <div className='flex'>
                         <button
-                            id='cancel-newblog' 
-                            className='button-cancel pointer' 
+                            id='cancel-newblog'
+                            className='button-cancel pointer'
                             onClick={toggable}
-                        >cancel</button>
+                        >Cancel</button>
                     </div>
                 </div>
             </div>

@@ -1,61 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { setBlogs } from './reduxs/blogsSlice';
+import React from 'react'
+import { Routes, Route, useMatch } from "react-router-dom";
 
 /** Our Components **/
-import { Show, Login, CreateBlog, Message } from './components'
-
-/** Our method **/
-import { getAllBlogs } from './utils/connection-axios';
+import { Login, Users, User, Blogs, Blog } from './components'
 
 export const App = () => {
 
-  const dispatch = useDispatch();
-
-  const [login, setLogin] = useState(false);
-  const [username, setUsername] = useState('');
-
-  /** Everyting the app to run, getting data Blogd from backend **/
-  const blogs = useSelector((state) => state.blogs.value);
-
-  const getBlogs = async () => {
-    const allblogs = await getAllBlogs()
-    dispatch(setBlogs(allblogs))
-  }
-
-  useEffect(() => {
-    getBlogs();
-  }, [login]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     dispatch(setMessage({ value: { note: '', type: '' } }))
-  //   }, 4000);
-  // }, []);
-
-  const loginProps = {
-    setLogin,
-    setUsername
-  };
-
-  const createBlog = {
-    blogs,
-    username,
-    setLogin,
-  }
-
-  return !login ?
-    (
-      <>
-        <Login loginProps={loginProps} />
-      </>
-    ) : (
-      <>
-        <CreateBlog createBlog={createBlog} />
-        <div className='mt2 mb1'>
-          <Message />
-        </div>
-        <Show />
-      </>
-    )
-};
+  const userMatch = useMatch('users/:id');
+  const blogMatch = useMatch('blogs/:id');
+  
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/users' element={<Users />} />
+        <Route path='/users/:id' element={userMatch ? <User userId={userMatch.params.id} /> : null} />
+        <Route path='/blogs' element={<Blogs />} />
+        <Route path='/blogs/:id' element={blogMatch ? <Blog blogId={blogMatch.params.id} /> : null} />
+      </Routes>
+    </>
+  )
+}
